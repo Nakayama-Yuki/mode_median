@@ -7,9 +7,9 @@ fn main() {
     let mode = calculate_mode(NUMBERS);
     println!("Median: {}", median);
     println!("Mode: {:?}", mode);
-
 }
 
+// 中央値を計算する関数
 fn calculate_median(numbers: &[i32]) -> f64 {
     let mut sorted_numbers = numbers.to_vec();
     sorted_numbers.sort();
@@ -21,13 +21,15 @@ fn calculate_median(numbers: &[i32]) -> f64 {
     }
 }
 
+// 最頻値を計算する関数
 fn calculate_mode(numbers: &[i32]) -> Vec<i32> {
     let mut frequency = std::collections::HashMap::new();
     for &number in numbers {
         *frequency.entry(number).or_insert(0) += 1;
     }
     let max_frequency = frequency.values().cloned().max().unwrap_or(0);
-    frequency.into_iter()
+    frequency
+        .into_iter()
         .filter(|&(_, count)| count == max_frequency)
         .map(|(number, _)| number)
         .collect()

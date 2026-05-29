@@ -47,3 +47,39 @@ fn calculate_mode(numbers: &[i32]) -> Vec<i32> {
         .map(|(number, _)| number)
         .collect()
 }
+
+#[cfg(test)]
+mod tests {
+    use super::{calculate_median, calculate_mode};
+
+    #[test]
+    fn calculates_median_for_odd_number_of_values() {
+        let numbers = [1, 5, 4, 9, 8];
+
+        assert_eq!(calculate_median(&numbers), 5.0);
+    }
+
+    #[test]
+    fn calculates_median_for_even_number_of_values() {
+        let numbers = [1, 2, 3, 4];
+
+        assert_eq!(calculate_median(&numbers), 2.5);
+    }
+
+    #[test]
+    fn calculates_mode_for_single_most_frequent_value() {
+        let numbers = [1, 5, 4, 9, 8, 7, 2, 3, 6, 1];
+
+        assert_eq!(calculate_mode(&numbers), vec![1]);
+    }
+
+    #[test]
+    fn calculates_mode_for_tied_most_frequent_values() {
+        let numbers = [1, 1, 2, 2, 3];
+
+        let mut mode = calculate_mode(&numbers);
+        mode.sort();
+
+        assert_eq!(mode, vec![1, 2]);
+    }
+}
